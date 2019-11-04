@@ -6,8 +6,10 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.abb.bakingapp.R;
 import com.abb.bakingapp.databinding.ItemRecipeListBinding;
 import com.abb.bakingapp.model.Recipe;
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +61,10 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipeHo
 
         void bind(Recipe recipe, RecipeClickListener listener) {
             binding.setRecipe(recipe);
+            Glide.with(binding.getRoot().getContext())
+                    .load(recipe.getImage())
+                    .placeholder(R.drawable.recipe_placeholder)
+                    .into(binding.recipeImage);
             binding.setListener(listener);
         }
     }

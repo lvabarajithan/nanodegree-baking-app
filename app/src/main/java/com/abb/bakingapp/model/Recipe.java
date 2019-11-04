@@ -17,6 +17,8 @@ public class Recipe implements Parcelable {
     private List<Step> steps;
     private int servings;
 
+    private String image;
+
     public Recipe() {
     }
 
@@ -26,6 +28,7 @@ public class Recipe implements Parcelable {
         servings = in.readInt();
         ingredients = in.createTypedArrayList(Ingredient.CREATOR);
         steps = in.createTypedArrayList(Step.CREATOR);
+        image = in.readString();
     }
 
     public static final Creator<Recipe> CREATOR = new Creator<Recipe>() {
@@ -80,6 +83,14 @@ public class Recipe implements Parcelable {
         this.servings = servings;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -92,5 +103,6 @@ public class Recipe implements Parcelable {
         dest.writeInt(servings);
         dest.writeTypedList(ingredients);
         dest.writeTypedList(steps);
+        dest.writeString(image);
     }
 }
