@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BakingApp</string>
+    <string name="item_recipe_servings">serves %d</string>
+    <string name="item_recipe_steps">%d steps</string>
+    <string name="recipe_steps_title">Steps - %s</string>
+    <string name="recipe_step_detail_title">Step %d - %s</string>
+    <string name="recipe_step_all_ingredients">All Ingredients</string>
+</resources>
