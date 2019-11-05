@@ -24,11 +24,11 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepHolder> 
 
     private View prevItem = null;
 
-    private boolean selectFirstItem;
+    private int selectItem;
 
-    public StepsAdapter(List<Step> steps, boolean selectFirstItem, StepClickListener listener) {
+    public StepsAdapter(List<Step> steps, int selectItem, StepClickListener listener) {
         this.steps = steps;
-        this.selectFirstItem = selectFirstItem;
+        this.selectItem = selectItem;
         this.listener = listener;
     }
 
@@ -51,7 +51,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.StepHolder> 
             prevItem = holder.itemView;
             listener.onStepItemClicked(holder.getAdapterPosition());
         });
-        if (selectFirstItem && position == 0) {
+        if (selectItem == position) {
             holder.itemView.performClick();
         }
     }

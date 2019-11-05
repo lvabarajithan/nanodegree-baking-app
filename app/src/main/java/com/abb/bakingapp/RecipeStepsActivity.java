@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -21,6 +22,7 @@ import com.abb.bakingapp.model.Recipe;
 public class RecipeStepsActivity extends AppCompatActivity {
 
     public static final String EXTRA_RECIPE = "recipe";
+    private static final String PREV_POS = "prev_pos";
 
     public static void start(Context context, Recipe recipe) {
         Intent starter = new Intent(context, RecipeStepsActivity.class);
@@ -53,8 +55,11 @@ public class RecipeStepsActivity extends AppCompatActivity {
                 .replace(R.id.recipeStepListContainer, stepListFragment)
                 .commit();
 
+        if (savedInstanceState != null) {
+            this.prevPos = savedInstanceState.getInt(PREV_POS);
+        }
         if (binding.fragmentRecipeStepsContainer != null) {
-            stepListFragment.selectFirstItem();
+            stepListFragment.selectItem(prevPos == -1 ? 0 : prevPos);
         }
     }
 
@@ -68,7 +73,7 @@ public class RecipeStepsActivity extends AppCompatActivity {
     }
 
     public void showRecipeStepDetails(int position) {
-        if (this.prevPos == position) {
+        if (binding.fragmentRecipeStepsContainer != null && this.prevPos == position) {
             return;
         }
         RecipeStepFragment stepFragment = RecipeStepFragment.create(recipe, position);
@@ -80,6 +85,12 @@ public class RecipeStepsActivity extends AppCompatActivity {
             RecipeStepDetailsActivity.start(this, recipe, position);
         }
         this.prevPos = position;
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(PREV_POS, prevPos);
     }
 
     public Recipe getRecipe() {

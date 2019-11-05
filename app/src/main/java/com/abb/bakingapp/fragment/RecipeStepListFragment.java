@@ -31,7 +31,7 @@ public class RecipeStepListFragment extends Fragment {
         return fragment;
     }
 
-    private boolean selectFirstItem = false;
+    private int selectItem = -1;
 
     private FragmentRecipeStepListBinding binding;
 
@@ -52,13 +52,13 @@ public class RecipeStepListFragment extends Fragment {
         binding.recipeStepList.setItemAnimator(new DefaultItemAnimator());
         binding.recipeStepList.setHasFixedSize(false);
 
-        binding.recipeStepList.setAdapter(new StepsAdapter(recipe.getSteps(), selectFirstItem,
+        binding.recipeStepList.setAdapter(new StepsAdapter(recipe.getSteps(), selectItem,
                 position -> ((RecipeStepsActivity) getActivity()).showRecipeStepDetails(position)));
 
     }
 
-    public void selectFirstItem() {
-        this.selectFirstItem = true;
+    public void selectItem(int pos) {
+        this.selectItem = pos;
     }
 
 }

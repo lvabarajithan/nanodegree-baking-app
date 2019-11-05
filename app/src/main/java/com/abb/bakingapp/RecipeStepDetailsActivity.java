@@ -49,9 +49,11 @@ public class RecipeStepDetailsActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.recipeStepDetailsContainer, RecipeStepFragment.create(recipe, stepId))
-                .commit();
+        if (getSupportFragmentManager().findFragmentByTag("detail") == null) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.recipeStepDetailsContainer, RecipeStepFragment.create(recipe, stepId), "detail")
+                    .commit();
+        }
     }
 
     @Override
